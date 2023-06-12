@@ -15,9 +15,18 @@ export default function Nav({ user }: Session){
                     </li>
                 )}
                 {user && (
-                    <li>
-                        <Image className='rounded-full' src={user?.image as string} alt={user?.name as string} width={48} height={48}/>
-                    </li>
+                    <div>
+                        <li>
+                            <Image 
+                            className='rounded-full' 
+                            src={user?.image as string} 
+                            alt={user?.name as string} 
+                            width={48} height={48}/>
+                        </li>
+                        <li>
+                            Dashboard
+                        </li>
+                    </div>
                 )}
             </ul>
         </nav>

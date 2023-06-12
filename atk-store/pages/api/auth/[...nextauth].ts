@@ -23,7 +23,7 @@ export const authOptions = {
         if(user.name && user.email){
             const customer = await stripe.customers.create({
                 email: user.email,
-            name: user.name,
+                name: user.name,
             })
             await prisma.user.update({
                 where: {id: user.id},
