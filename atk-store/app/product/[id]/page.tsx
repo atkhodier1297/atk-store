@@ -1,5 +1,6 @@
 import Image from "next/image"
 import { SearchParamType } from "@/types/SearchParamType"
+import priceFormat from "@/util/PriceFormat"
 
 export default async function Product({searchParams}: SearchParamType) {
     return(
@@ -13,6 +14,9 @@ export default async function Product({searchParams}: SearchParamType) {
         <div>
             <h1>{searchParams.name}</h1>
             <p>{searchParams.description}</p>
+        </div>
+        <div className="flex gap-2">
+            <p className="font-bold text-teal-500">{searchParams.unit_amount !== null ? priceFormat(searchParams.unit_amount) : "N/A"}</p>
         </div>
     </div>
     )
