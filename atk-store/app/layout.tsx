@@ -18,7 +18,7 @@ export default async function RootLayout({
   const session = await getServerSession(authOptions)
   return (
     <html lang="en">
-      <body>
+      <body className='px-10'>
         <Hydrate>
           <Nav user={session?.user} expires={session?.expires as string} />
         </Hydrate>

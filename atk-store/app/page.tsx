@@ -31,7 +31,7 @@ export default async function Home() {
   return (
     <main className="grid grid-cols-fluid gap-12">
        {products.map((product) => (
-        <Product {...product}/>
+        <Product key={product.id} {...product}/>
        ))}
     </main>
   )
