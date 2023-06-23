@@ -2,6 +2,7 @@ import './globals.css'
 import Nav from './components/Nav'
 import { getServerSession } from 'next-auth/next'
 import { authOptions } from '@/pages/api/auth/[...nextauth]'
+import Hydrate from './components/Hydrate'
 
 
 export const metadata = {
@@ -18,7 +19,9 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body>
-        <Nav user={session?.user} expires={session?.expires as string} />
+        <Hydrate>
+          <Nav user={session?.user} expires={session?.expires as string} />
+        </Hydrate>
         {children}
       </body>
     </html>

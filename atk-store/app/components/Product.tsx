@@ -18,7 +18,8 @@ export default function Product(
                     <h1 className="font-medium">{name}</h1>
                     <Image className="w-full object-cover" 
                     src={image} alt={name} 
-                    width={400} height={400}/>
+                    width={400} height={400}
+                    />
                     <h3 className="text-teal-500 font-medium py-2">{unit_amount !== null ? priceFormat(unit_amount) : 'N/A'}</h3>
                 </div>
             </Link>

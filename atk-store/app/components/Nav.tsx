@@ -16,7 +16,7 @@ export default function Nav({ user }: Session){
             <h1>ATK-STORE</h1>
             </Link>
             <ul className='flex items-center gap-12'>
-                <li className='flex items-center text-3xl relative cursor-pointer'>
+                <li onClick={ () => cartStore.toggleCart() } className='flex items-center text-3xl relative cursor-pointer'>
                     <AiFillShopping/>
                     <span className='flex items-center justify-center text-sm bg-teal-500 text-white font-medium w-5 h-5 rounded-full absolute left-4 bottom-4'>
                         {cartStore.cart.length}
