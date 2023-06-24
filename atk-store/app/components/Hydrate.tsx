@@ -1,18 +1,13 @@
-'use client'
+"use client";
 
-import { ReactNode, useEffect, useState } from 'react'
+import { ReactNode, useEffect, useState } from "react";
 
-export default function Hydrate({children}: {children: ReactNode}){
+export default function Hydrate({ children }: { children: ReactNode }) {
+  const [isHydrated, setIsHydrated] = useState(false);
 
-    const [isHydrated, setIsHydrated] = useState(false)
+  useEffect(() => {
+    setIsHydrated(true);
+  }, []);
 
-    useEffect(() => {
-        setIsHydrated(true)
-    }, [])
-
-    return(
-        <>
-        {isHydrated ? <>{children}</> : <div>Loading</div> }
-        </>
-    )
+  return <>{isHydrated ? <>{children}</> : <div>Loading</div>}</>;
 }
