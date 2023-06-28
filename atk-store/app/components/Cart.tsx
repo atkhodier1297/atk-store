@@ -16,7 +16,8 @@ export default function Cart() {
         onClick={(e) => e.stopPropagation()}
         className="bg-white absolute right-0 top-0 w-1/2 h-screen p-12 overflow-x-scroll text-gray"
       >
-        <h1>Here's your shopping list! 📃</h1>
+        { cartStore.cart.length < 1 ? <h1>Your shopping cart is empty...😔</h1> :
+        <h1>Here's your shopping list! 📃</h1> }
         {cartStore.cart.map((item) => (
           <div className="flex py-4 gap-4">
             <Image
