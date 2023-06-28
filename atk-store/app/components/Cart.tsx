@@ -2,6 +2,7 @@
 import Image from "next/image";
 import { useCartStore } from "@/store";
 import priceFormat from "@/util/PriceFormat";
+import { IoAddCircle, IoRemoveCircle } from "react-icons/io5";
 
 export default function Cart() {
   const cartStore = useCartStore();
@@ -13,7 +14,7 @@ export default function Cart() {
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className="bg-white absolute right-0 top-0 w-1/4 h-screen p-12 overflow-y-scroll text-gray"
+        className="bg-white absolute right-0 top-0 w-1/2 h-screen p-12 overflow-x-scroll text-gray"
       >
         <h1>Here's your shopping list! 📃</h1>
         {cartStore.cart.map((item) => (
@@ -27,14 +28,45 @@ export default function Cart() {
             />
             <div>
               <h2>{item.name}</h2>
-              <h2>Quantity: {item.quantity}</h2>
-              <p className="text-sm">{item.unit_amount && priceFormat(item.unit_amount)}</p>
+              <div className="flex gap-2">
+                <h2>Quantity: {item.quantity}</h2>
+                <button onClick={() =>
+                    cartStore.removeProduct({
+                      id: item.id,
+                      image: item.image,
+                      name: item.name,
+                      unit_amount: item.unit_amount,
+                      quantity: item.quantity,
+                    })
+                  }
+                >
+                  <IoRemoveCircle />
+                </button>
+                <button
+                  onClick={() =>
+                    cartStore.addProduct({
+                      id: item.id,
+                      image: item.image,
+                      name: item.name,
+                      unit_amount: item.unit_amount,
+                      quantity: item.quantity,
+                    })
+                  }
+                >
+                  <IoAddCircle />
+                </button>
+              </div>
+              <p className="text-sm">
+                {item.unit_amount && priceFormat(item.unit_amount)}
+              </p>
             </div>
           </div>
         ))}
-        { cartStore.cart.length > 0 ?
-        <button className="mt-4 w-full text-white py-2 px-6 font-medium rounded-md bg-teal-500">Checkout</button>
-        : null }
+        {cartStore.cart.length > 0 ? (
+          <button className="mt-4 w-full text-white py-2 px-6 font-medium rounded-md bg-teal-500">
+            Checkout
+          </button>
+        ) : null}
       </div>
     </div>
   );
