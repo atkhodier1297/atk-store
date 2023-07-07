@@ -3,7 +3,7 @@ import Image from "next/image";
 import { useCartStore } from "@/store";
 import priceFormat from "@/util/PriceFormat";
 import { IoAddCircle, IoRemoveCircle } from "react-icons/io5";
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion, AnimatePresence, } from 'framer-motion'
 import cart from '@/public/cart.png'
 
 export default function Cart() {
@@ -22,7 +22,7 @@ export default function Cart() {
       className="fixed w-full h-screen left-0 top-0 bg-black/50"
     >
       <motion.div
-      
+        layout
         onClick={(e) => e.stopPropagation()}
         className="bg-white absolute right-0 top-0 w-1/2 h-screen p-12 overflow-x-scroll text-gray"
       >
@@ -42,7 +42,9 @@ export default function Cart() {
         )}
         </AnimatePresence>
         {cartStore.cart.map((item) => (
-          <div className="flex py-4 gap-4">
+          <motion.div 
+          layout key={item.id}
+          className="flex py-4 gap-4">
             <Image
               className="rounded-md h-24"
               src={item.image}
@@ -85,15 +87,15 @@ export default function Cart() {
                 {item.unit_amount && priceFormat(item.unit_amount)}
               </p>
             </div>
-          </div>
+          </motion.div>
         ))}
         {cartStore.cart.length > 0 ? (
-          <div>
+          <motion.div layout>
             <p>Cart Total: {priceFormat(totalPrice)}</p>
             <button className="mt-4 w-full text-white py-2 px-6 font-medium rounded-md bg-teal-500">
               Checkout
             </button>
-          </div>
+          </motion.div>
         ) : null}
       </motion.div>
     </motion.div>
