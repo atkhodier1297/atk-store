@@ -3,8 +3,8 @@ import Image from "next/image";
 import { useCartStore } from "@/store";
 import priceFormat from "@/util/PriceFormat";
 import { IoAddCircle, IoRemoveCircle } from "react-icons/io5";
-import { motion, AnimatePresence, } from 'framer-motion'
-import cart from '@/public/cart.png'
+import { motion, AnimatePresence } from "framer-motion";
+import cartempty from "@/public/cartempty.png";
 
 export default function Cart() {
   const cartStore = useCartStore();
@@ -24,27 +24,28 @@ export default function Cart() {
       <motion.div
         layout
         onClick={(e) => e.stopPropagation()}
-        className="bg-white absolute right-0 top-0 w-1/2 h-screen p-12 overflow-x-scroll text-gray"
+        className="bg-white absolute right-0 top-0 lg:w-1/2 w-full h-screen p-12 overflow-x-scroll text-gray"
       >
         <AnimatePresence>
-        {cartStore.cart.length < 1 ? (
-          <motion.div
-          initial={{ scale: 0.5, rotateZ: -10, opacity: 0 }}
-          animate={{ scale: 1, rotateZ: 0, opacity: 0.75 }}
-          exit={{ scale: 1, rotateZ: 0, opacity: 0.75 }}
-          className="flex flex-col items-center gap-12 text-xl font-medium">
-          <h1>Your shopping cart is empty...😔</h1>
-          <Image src={cart} alt="empty cart"/>
-          </motion.div>
-          
-        ) : (
-          <h1>Here's your shopping list! 📃</h1>
-        )}
+          {cartStore.cart.length < 1 ? (
+            <motion.div
+              initial={{ scale: 0.5, rotateZ: -40, opacity: 0 }}
+              animate={{ scale: 1, rotateZ: 0, opacity: 0.75 }}
+              exit={{ scale: 1, rotateZ: 0, opacity: 0 }}
+              className="flex flex-col items-center gap-12 text-xl font-medium"
+            >
+              <button
+              className="text-sm font-bold pb-12"
+              onClick={() => cartStore.toggleCart()}
+              >Shopping Cart Is Empty 😔 Return Home 🏃💨  </button>
+              <Image src={cartempty} alt="empty cart" />
+            </motion.div>
+          ) : (
+            <h1>Here's your shopping list! 📃</h1>
+          )}
         </AnimatePresence>
         {cartStore.cart.map((item) => (
-          <motion.div 
-          layout key={item.id}
-          className="flex py-4 gap-4">
+          <motion.div layout key={item.id} className="flex py-4 gap-4">
             <Image
               className="rounded-md h-24"
               src={item.image}
