@@ -20,7 +20,6 @@ export default function Product({
       }}
     >
       <div className="text-gray-700">
-        <h1 className="font-medium text-center">{name}</h1>
         <Image
           className="w-full object-cover"
           src={image}
@@ -28,6 +27,7 @@ export default function Product({
           width={400}
           height={400}
         />
+        <h1 className="font-medium text-center">{name}</h1>
         <h3 className="text-teal-500 font-medium py-2">
           {unit_amount !== null ? priceFormat(unit_amount) : "N/A"}
         </h3>
