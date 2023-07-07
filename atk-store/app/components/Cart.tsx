@@ -3,6 +3,8 @@ import Image from "next/image";
 import { useCartStore } from "@/store";
 import priceFormat from "@/util/PriceFormat";
 import { IoAddCircle, IoRemoveCircle } from "react-icons/io5";
+import { motion, AnimatePresence } from 'framer-motion'
+import cart from '@/public/cart.png'
 
 export default function Cart() {
   const cartStore = useCartStore();
@@ -12,19 +14,33 @@ export default function Cart() {
   }, 0);
 
   return (
-    <div
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
       onClick={() => cartStore.toggleCart()}
       className="fixed w-full h-screen left-0 top-0 bg-black/50"
     >
-      <div
+      <motion.div
+      
         onClick={(e) => e.stopPropagation()}
         className="bg-white absolute right-0 top-0 w-1/2 h-screen p-12 overflow-x-scroll text-gray"
       >
+        <AnimatePresence>
         {cartStore.cart.length < 1 ? (
+          <motion.div
+          initial={{ scale: 0.5, rotateZ: -10, opacity: 0 }}
+          animate={{ scale: 1, rotateZ: 0, opacity: 0.75 }}
+          exit={{ scale: 1, rotateZ: 0, opacity: 0.75 }}
+          className="flex flex-col items-center gap-12 text-xl font-medium">
           <h1>Your shopping cart is empty...😔</h1>
+          <Image src={cart} alt="empty cart"/>
+          </motion.div>
+          
         ) : (
           <h1>Here's your shopping list! 📃</h1>
         )}
+        </AnimatePresence>
         {cartStore.cart.map((item) => (
           <div className="flex py-4 gap-4">
             <Image
@@ -79,7 +95,7 @@ export default function Cart() {
             </button>
           </div>
         ) : null}
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 }
