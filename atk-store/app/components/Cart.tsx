@@ -44,6 +44,8 @@ export default function Cart() {
             <h1>Here's your shopping list! 📃</h1>
           )}
         </AnimatePresence>
+        
+        {cartStore.onCheckout === 'cart' && ()}
         {cartStore.cart.map((item) => (
           <motion.div layout key={item.id} className="flex py-4 gap-4">
             <Image

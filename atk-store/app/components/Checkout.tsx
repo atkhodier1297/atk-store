@@ -20,8 +20,14 @@ export default function Checkout(){
             body: JSON.stringify({
                 items: cartStore.cart,
                 payment_intent_id: cartStore.paymentIntent,
-            })
+            }),
+        }).then((res) => {
+            // set client secret and intent
         })
 
     }, [])
+
+    return(
+        <h1>Checkout screen!</h1>
+    )
 }
