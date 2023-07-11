@@ -19,7 +19,4 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     res.status(200).json({ userSession })
     return
     //data for the order
-    const orderData = {
-        user: {connect: {id: userSession.user?.id}},
-    }
 }

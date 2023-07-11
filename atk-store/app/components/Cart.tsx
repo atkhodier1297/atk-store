@@ -5,6 +5,7 @@ import priceFormat from "@/util/PriceFormat";
 import { IoAddCircle, IoRemoveCircle } from "react-icons/io5";
 import { motion, AnimatePresence } from "framer-motion";
 import cartempty from "@/public/cartempty.png";
+import Checkout from "./Checkout";
 
 export default function Cart() {
   const cartStore = useCartStore();
@@ -98,14 +99,15 @@ export default function Cart() {
           </>
         )}
 
-        {cartStore.cart.length > 0 ? (
+        {cartStore.cart.length > 0 && (
           <motion.div layout>
             <p>Cart Total: {priceFormat(totalPrice)}</p>
-            <button className="mt-4 w-full text-white py-2 px-6 font-medium rounded-md bg-teal-500">
+            <button onClick={() => cartStore.setCheckout("checkout")} className="mt-4 w-full text-white py-2 px-6 font-medium rounded-md bg-teal-500">
               Checkout
             </button>
           </motion.div>
-        ) : null}
+        )}
+        {cartStore.onCheckout === "checkout" && <Checkout/>}
       </motion.div>
     </motion.div>
   );
