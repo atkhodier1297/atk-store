@@ -54,6 +54,33 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 payment_intent_id,
                 { amount: calculateOrderAmount(items) }
             )
+            //fetch order with product ids
+            const existing_order = await  prisma.order.findFirst({
+                where: {paymentIntentID: updated_intent.id},
+                include: {products: true}
+            })
+            if(!existing_order){
+                res.status(400).json({message: 'invalid payment intent'})
+            }
+            // update the existing order\
+            const updated_order = await prisma.order.update({
+                where: {id: existing_order?.id},
+                data: {
+                    amount: calculateOrderAmount(items)
+                    products: {
+                        deleteMany: {},
+                        create: items.map((item) => ({
+                            name: item.name,
+                            description: item.description,
+                            unit_amount: item.unit_amount,
+                            image: item.image,
+                            quantity: item.quantity,
+                        })),
+                    },
+                },
+            })
+            res.status(200).json({paymentIntent: updated_intent})
+            return
         }
     }else{
         const paymentIntent = await stripe.paymentIntents.create({
