@@ -49,16 +49,22 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     if(payment_intent_id){
         const current_intent = await stripe.paymentIntents.retrieve(payment_intent_id)
+        if(current_intent){
+            const updated_intent = await stripe.paymentIntents.update(
+                payment_intent_id,
+                { amount: calculateOrderAmount(items) }
+            )
+        }
     }else{
         const paymentIntent = await stripe.paymentIntents.create({
             amount: calculateOrderAmount(items),
             currency: "usd",
             automatic_payment_methods: { enabled: true },
         })
-        
+
         orderData.paymentIntentID = paymentIntent.id
         const newOrder = await prisma.order.create({
-            data: orderData  
+            data: orderData,  
         })
     }
     res.status(200).json({ message: 'done' })
