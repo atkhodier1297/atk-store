@@ -11,6 +11,8 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
 
 const prisma = new PrismaClient()
 
+
+//calc orders entire price
 const calculateOrderAmount = (items: AddCartType[]) => {
     const totalPrice = items.reduce((acc, item) => {
         return acc + item.unit_amount! * item.quantity!
@@ -19,17 +21,18 @@ const calculateOrderAmount = (items: AddCartType[]) => {
 }
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse){
-    //Get user
+    //Get user if not logged in get booted out
     const userSession = await getServerSession(req,res,authOptions)
     if(!userSession?.user){
         res.status(403).json({message: "Not logged in!"})
     }
     //extract data from the body
     const {items, payment_intent_id } = req.body
+    console.log(items, payment_intent_id )
 
     //data for the order
     const orderData = {
-        user: { connect: { id: userSession.user?.id } },
+        user: { connect: { id: userSession?.user?.id } },
         amount: calculateOrderAmount(items),
         currency: 'usd',
         status: 'pending',
@@ -46,7 +49,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     //check if payment intent exists just update the order else create new prisma order
-
     if(payment_intent_id){
         const current_intent = await stripe.paymentIntents.retrieve(payment_intent_id)
         if(current_intent){
@@ -62,11 +64,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             if(!existing_order){
                 res.status(400).json({message: 'invalid payment intent'})
             }
-            // update the existing order\
+            // update the existing order
             const updated_order = await prisma.order.update({
                 where: {id: existing_order?.id},
                 data: {
-                    amount: calculateOrderAmount(items)
+                    amount: calculateOrderAmount(items),
                     products: {
                         deleteMany: {},
                         create: items.map((item) => ({
@@ -94,7 +96,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             data: orderData,  
         })
     }
-    res.status(200).json({ message: 'done' })
+    res.status(200).json({ payment_intent_id })
     return
     
 }

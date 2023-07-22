@@ -15,25 +15,26 @@ export default function Checkout(){
     const [clientSecret, setClientSecret] = useState("")
 
     useEffect(() => {
-        //create payment intent when page loads up create only one payment intent
+        //Create a paymentIntent as soon as the page loads up
         fetch("/api/create-payment-intent", {
-            method: "POST",
-            headers: {"Content-Type" : "application/json"},
-            body: JSON.stringify({
-                items: cartStore.cart,
-                payment_intent_id: cartStore.paymentIntent,
-            }),
-        }).then((res) => {
-            // set client secret and intent
-            if(res.status === 400) {
-                return router.push('/api/auth/signin')
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            items: cartStore.cart,
+            payment_intent_id: cartStore.paymentIntent,
+          }),
+        })
+          .then((res) => {
+            if (res.status === 403) {
+              return router.push("/api/auth/signin")
             }
             return res.json()
-        }).then((data) => {
-            console.log(data)
-        })
-
-    }, [])
+          })
+          .then((data) => {
+            setClientSecret(data.paymentIntent.client_secret)
+            cartStore.setPaymentIntent(data.paymentIntent.id)
+          })
+      }, [])
 
     return(
         <h1>Checkout screen!</h1>
