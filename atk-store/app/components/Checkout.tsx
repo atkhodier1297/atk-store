@@ -4,6 +4,7 @@ import { Elements } from "@stripe/react-stripe-js"
 import { useCartStore } from "@/store"
 import { useState, useEffect } from 'react'
 import { useRouter } from "next/navigation"
+import CheckoutForm from "./CheckoutForm"
 
 const stripePromise = loadStripe(
     process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
@@ -36,7 +37,23 @@ export default function Checkout(){
           })
       }, [])
 
+      const options: StripeElementsOptions = {
+        clientSecret,
+        appearance: {
+          theme: 'stripe',
+          labels: 'floating',
+        },
+      }
+
     return(
-        <h1>Checkout screen!</h1>
+        <div>
+          {clientSecret && (
+            <div>
+              <Elements options={options} stripe={stripePromise}>
+                <CheckoutForm clientSecret={clientSecret}/>
+              </Elements>
+            </div>
+          )}
+        </div>
     )
 }

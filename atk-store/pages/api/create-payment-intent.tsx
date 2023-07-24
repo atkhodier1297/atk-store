@@ -89,13 +89,14 @@ export default async function handler(
       return;
     }
   } else {
+    //create new prisma order
     const paymentIntent = await stripe.paymentIntents.create({
       amount: calculateOrderAmount(items),
       currency: "usd",
       automatic_payment_methods: { enabled: true },
     });
 
-    orderData.paymentIntentID = paymentIntent.id;
+    orderData.paymentIntentID = paymentIntent.id
     const newOrder = await prisma.order.create({
       data: orderData,
     });
