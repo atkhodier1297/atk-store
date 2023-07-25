@@ -40,6 +40,7 @@ export default function CheckoutForm({clientSecret}: {clientSecret: string}){
                 cartStore.setCheckout("success")
             }
             setIsLoading(false)
+
         })
     }
 
