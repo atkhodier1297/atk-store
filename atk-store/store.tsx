@@ -1,7 +1,6 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { AddCartType } from "./types/AddCartType";
-import { IoAddCircle, IoRemoveCircle } from "react-icons/io5";
 
 type CartState = {
   isOpen: boolean;
