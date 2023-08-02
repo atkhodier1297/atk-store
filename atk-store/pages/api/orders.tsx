@@ -19,8 +19,11 @@ export default async function handler(req:NextApiRequest, res:NextApiResponse) {
                 },
                 include: {
                     products: true
-                }
+                },
             })
+            res.status(200).json(orders)
+        }catch(err){
+            res.status(500).json({message: "Failed to fetch orders"})
         }
     }
 }
