@@ -23,16 +23,16 @@ export default function Nav({ user }: Session) {
         >
           <AiFillShopping />
           <AnimatePresence>
-          {cartStore.cart.length > 0 && (
-            <motion.span
-              animate={{ scale: 1 }}
-              initial={{ scale: 0 }}
-              exit={{ scale: 0 }}
-              className="flex items-center justify-center text-sm bg-teal-500 text-white font-medium w-5 h-5 rounded-full absolute left-4 bottom-4"
-            >
-              {cartStore.cart.length}
-            </motion.span>
-          )}
+            {cartStore.cart.length > 0 && (
+              <motion.span
+                animate={{ scale: 1 }}
+                initial={{ scale: 0 }}
+                exit={{ scale: 0 }}
+                className="flex items-center justify-center text-sm bg-teal-500 text-white font-medium w-5 h-5 rounded-full absolute left-4 bottom-4"
+              >
+                {cartStore.cart.length}
+              </motion.span>
+            )}
           </AnimatePresence>
         </li>
         {!user && (
@@ -54,9 +54,7 @@ export default function Nav({ user }: Session) {
           </div>
         )}
       </ul>
-      <AnimatePresence>
-      {cartStore.isOpen && <Cart />}
-      </AnimatePresence>
+      <AnimatePresence>{cartStore.isOpen && <Cart />}</AnimatePresence>
     </nav>
   );
 }

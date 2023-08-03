@@ -6,7 +6,7 @@ const fetchOrders = async () => {
   const prisma = new PrismaClient();
   const user = await getServerSession(authOptions);
   if (!user) {
-    return {message: "Not logged in"}
+    return { message: "Not logged in" };
   }
   const orders = await prisma.order.findMany({
     where: {
@@ -16,12 +16,12 @@ const fetchOrders = async () => {
       products: true,
     },
   });
-  return orders
+  return orders;
 };
 
 export default async function Dashboard() {
-    const orders = await fetchOrders()
-    console.log(orders)
+  const orders = await fetchOrders();
+  console.log(orders);
   return (
     <div>
       <h1>Dashbooard</h1>
