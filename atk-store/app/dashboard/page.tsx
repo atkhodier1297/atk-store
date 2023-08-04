@@ -20,26 +20,44 @@ const fetchOrders = async () => {
 };
 
 export default async function Dashboard() {
-
   const orders = await fetchOrders();
 
-  if(orders === null)
-  return <div>You need to be logged in to view your orders</div>
+  if (orders === null)
+    return <div>You need to be logged in to view your orders</div>;
+
   console.log(orders);
 
-  if(orders.length === 0)
-  return <div><h1>No orders placed</h1></div>
-  
-  return (
-    <div>
-      <div className="font-medium">
-        {orders.map((order) => (
-          <div className="rounded-lg" key={order.id}>
-            <h2>Order reference: {order.id}</h2>
-            <p>Time: {new Date(order.createdDate)}</p>
-          </div>
-        ))}
+  if (orders.length === 0) {
+    return (
+      <div>
+        <h1>No orders placed</h1>
       </div>
-    </div>
-  );
+    );
+  } else {
+    return (
+      <div>
+        <div className="font-medium">
+          <h1 className="text-cl">Your orders</h1>
+          {orders.map((order) => (
+            <div className="rounded-lg" key={order.id}>
+              <h2>Order reference: {order.id}</h2>
+              <p>Time: {new Date(order.createdDate)}</p>
+              <p className="text-md py-2">
+                Status{" "}
+                <span
+                  className={`${
+                    order.status === "complete"
+                      ? "bg-green-500"
+                      : "bg-yellow-500"
+                  }`}
+                >
+                  {order.status}
+                </span>
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
 }
