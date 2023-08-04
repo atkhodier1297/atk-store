@@ -49,7 +49,7 @@ export default async function Dashboard() {
                     order.status === "complete"
                       ? "bg-green-500"
                       : "bg-yellow-500"
-                  }`}
+                  } text-white py-1 rounded-md px-2 mx-2 text-small`}
                 >
                   {order.status}
                 </span>
