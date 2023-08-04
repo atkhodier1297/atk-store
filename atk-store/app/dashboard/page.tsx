@@ -6,7 +6,7 @@ const fetchOrders = async () => {
   const prisma = new PrismaClient();
   const user = await getServerSession(authOptions);
   if (!user) {
-    return { message: "Not logged in" };
+    return null;
   }
   const orders = await prisma.order.findMany({
     where: {
@@ -20,11 +20,18 @@ const fetchOrders = async () => {
 };
 
 export default async function Dashboard() {
+
   const orders = await fetchOrders();
+
+  if(orders === null)
+  return <div>You need to be logged in to view your orders</div>
   console.log(orders);
+
+  if(orders.length === 0)
+  return <div><h1>No orders placed</h1></div>
+  
   return (
     <div>
-      {orders.length === 0 ? <h1>No orders</h1> : <h1>Your orders</h1>}
       <div className="font-medium">
         {orders.map((order) => (
           <div className="rounded-lg" key={order.id}>
