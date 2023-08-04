@@ -24,7 +24,15 @@ export default async function Dashboard() {
   console.log(orders);
   return (
     <div>
-      <h1>Dashbooard</h1>
+      {orders.length === 0 ? <h1>No orders</h1> : <h1>Your orders</h1>}
+      <div className="font-medium">
+        {orders.map((order) => (
+          <div className="rounded-lg" key={order.id}>
+            <h2>Order reference: {order.id}</h2>
+            <p>Time: {new Date(order.createdDate)}</p>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
