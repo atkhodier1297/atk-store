@@ -41,7 +41,7 @@ export default function Nav({ user }: Session) {
           </li>
         )}
         {user && (
-          <div>
+          <Link href={"/dashboard"}>
             <li>
               <Image
                 className="rounded-full"
@@ -51,7 +51,7 @@ export default function Nav({ user }: Session) {
                 height={48}
               />
             </li>
-          </div>
+          </Link>  
         )}
       </ul>
       <AnimatePresence>{cartStore.isOpen && <Cart />}</AnimatePresence>
