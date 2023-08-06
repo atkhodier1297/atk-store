@@ -4,6 +4,8 @@ import { authOptions } from "@/pages/api/auth/[...nextauth]";
 import priceFormat from "@/util/PriceFormat";
 import Image from "next/image";
 
+export const revalidate = 0
+
 const fetchOrders = async () => {
   const prisma = new PrismaClient();
   const user = await getServerSession(authOptions);
@@ -41,7 +43,7 @@ export default async function Dashboard() {
         <div className="font-medium">
           <h1 className="text-xl">Your recent orders</h1>
           {orders.map((order) => (
-            <div className="rounded-lg border border-black" key={order.id}>
+            <div className="rounded-lg p-8 my-12" key={order.id}>
               <h2>Order reference: {order.id}</h2>
               <p>Time: {new Date(order.createdDate)}</p>
               <p className="text-md py-2">
