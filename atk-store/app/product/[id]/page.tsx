@@ -15,7 +15,7 @@ export default async function Product({ searchParams }: SearchParamType) {
       />
       <h1 className="text-2xl py-2 font-medium">{searchParams.name}</h1>
       <p className="py-2">{searchParams.description}</p>
-      <p className="font-bold text-teal-500">
+      <p className="font-bold text-primary ">
         {searchParams.unit_amount !== null
           ? priceFormat(searchParams.unit_amount)
           : "N/A"}
