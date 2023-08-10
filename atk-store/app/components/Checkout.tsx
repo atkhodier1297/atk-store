@@ -5,6 +5,7 @@ import { useCartStore } from "@/store";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import CheckoutForm from "./CheckoutForm";
+import OrderAnimation from "./OrderAnimation";
 
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
@@ -45,8 +46,10 @@ export default function Checkout() {
     },
   };
 
+  //renders orderani component while client secret is obtained and stripe is loading
   return (
     <div>
+      {!clientSecret && <OrderAnimation/>}
       {clientSecret && (
         <div>
           <Elements options={options} stripe={stripePromise}>
