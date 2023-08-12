@@ -41,23 +41,41 @@ export default function Nav({ user }: Session) {
           </li>
         )}
         {user && (
-            <li>
-              <div >
+          <li>
+            <div className="dropdown dropdown-end cursor-pointer">
               <Image
                 className="rounded-full"
                 src={user?.image as string}
                 alt={user?.name as string}
                 width={48}
                 height={48}
+                tabIndex={0}
               />
-              <ul tabIndex={0} className="dropdown-content menu p-4 space-y-4 shadow bg-base-100 rounded-box w-72">
-                <Link href={"/dashboard"} className="hover:bg-base-300 p-4 rounded-md">Orders</Link>
-                <li className="hover:bg-base-300 p-4 rounded-md">
-                  Sign Out
-                </li>
+              <ul
+                tabIndex={0}
+                className="dropdown-content menu p-4 space-y-4 shadow bg-base-100 rounded-box w-72"
+              >
+                <Link
+                  href={"/dashboard"}
+                  className="hover:bg-base-300 p-4 rounded-md"
+                  onClick={() => {
+                    if(document.activeElement instanceof HTMLElement){
+                    document.activeElement.blur()
+                  }}
+                }
+                >
+                  Orders
+                </Link>
+                <li className="hover:bg-base-300 p-4 rounded-md"
+                onClick={() => {
+                  if(document.activeElement instanceof HTMLElement){
+                  document.activeElement.blur()
+                }}
+              }
+                >Sign Out</li>
               </ul>
-              </div>
-            </li> 
+            </div>
+          </li>
         )}
       </ul>
       <AnimatePresence>{cartStore.isOpen && <Cart />}</AnimatePresence>
