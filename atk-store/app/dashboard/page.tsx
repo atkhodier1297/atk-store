@@ -43,7 +43,7 @@ export default async function Dashboard() {
         <div className="font-medium">
           <h1 className="text-xl">Your recent orders</h1>
           {orders.map((order) => (
-            <div className="rounded-lg p-8 my-4 space-y-2" key={order.id}>
+            <div className="rounded-lg p-8 my-4 space-y-2 bg-base-200" key={order.id}>
               <h2 className="text-xs font-medium">Order reference: {order.id}</h2>
               <p className="text-xs">
                 Status:
