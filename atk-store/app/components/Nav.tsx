@@ -41,8 +41,8 @@ export default function Nav({ user }: Session) {
           </li>
         )}
         {user && (
-          <Link href={"/dashboard"}>
             <li>
+              <div >
               <Image
                 className="rounded-full"
                 src={user?.image as string}
@@ -50,8 +50,14 @@ export default function Nav({ user }: Session) {
                 width={48}
                 height={48}
               />
-            </li>
-          </Link>  
+              <ul tabIndex={0} className="dropdown-content menu p-4 space-y-4 shadow bg-base-100 rounded-box w-72">
+                <Link href={"/dashboard"} className="hover:bg-base-300 p-4 rounded-md">Orders</Link>
+                <li className="hover:bg-base-300 p-4 rounded-md">
+                  Sign Out
+                </li>
+              </ul>
+              </div>
+            </li> 
         )}
       </ul>
       <AnimatePresence>{cartStore.isOpen && <Cart />}</AnimatePresence>
