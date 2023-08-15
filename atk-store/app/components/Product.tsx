@@ -26,6 +26,7 @@ export default function Product({
           alt={name}
           width={400}
           height={400}
+          priority
         />
         <h1 className="font-medium text-center">{name}</h1>
         <h3 className="text-primary font-medium py-2">

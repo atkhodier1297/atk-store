@@ -1,13 +1,14 @@
 "use client";
 
 import { Session } from "next-auth";
-import { signIn } from "next-auth/react";
+import { signIn, signOut } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import Cart from "./Cart";
 import { useCartStore } from "@/store";
 import { AiFillShopping } from "react-icons/ai";
 import { AnimatePresence, motion } from "framer-motion";
+import DarkLight from "./DarkLight";
 
 export default function Nav({ user }: Session) {
   const cartStore = useCartStore();
@@ -16,7 +17,7 @@ export default function Nav({ user }: Session) {
       <Link href={"/"}>
         <h1>ATK-STORE</h1>
       </Link>
-      <ul className="flex items-center gap-12">
+      <ul className="flex items-center gap-8">
         <li
           onClick={() => cartStore.toggleCart()}
           className="flex items-center text-3xl relative cursor-pointer"
@@ -35,6 +36,7 @@ export default function Nav({ user }: Session) {
             )}
           </AnimatePresence>
         </li>
+        <DarkLight/>
         {!user && (
           <li className="bg-primary text-white py-2 px-4 rounded-md">
             <button onClick={() => signIn()}>Sign in</button>
@@ -68,6 +70,7 @@ export default function Nav({ user }: Session) {
                 </Link>
                 <li className="hover:bg-base-300 p-4 rounded-md"
                 onClick={() => {
+                  signOut()
                   if(document.activeElement instanceof HTMLElement){
                   document.activeElement.blur()
                 }}
