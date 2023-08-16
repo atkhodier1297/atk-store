@@ -12,6 +12,15 @@ export default function Product({
   metadata,
 }: ProductType) {
   const { features } = metadata;
+
+
+  //if statement below is because I connected this account to a previous stripe store and cannot delete certain items.
+  if (name === "Call of Duty Modern Warfare 2 PS5") {
+    return (
+      null
+    )
+  }
+
   return (
     <Link
       href={{
