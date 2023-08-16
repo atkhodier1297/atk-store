@@ -20,7 +20,7 @@ export default function AddCart({
     setAdded(true)
     setTimeout(() => {
       setAdded(false)
-    }, 2000)
+    }, 500)
   }
 
   return (
