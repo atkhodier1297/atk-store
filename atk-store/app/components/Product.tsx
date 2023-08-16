@@ -30,12 +30,12 @@ export default function Product({
     >
       <div>
         <Image
-          className="w-full object-cover"
+          className="w-full object-cover rounded-lg"
           src={image}
           alt={name}
           width={400}
           height={400}
-          priority
+          priority={true}
         />
         <h1 className="font-medium text-center">{name}</h1>
         <h3 className="text-primary font-medium py-2">

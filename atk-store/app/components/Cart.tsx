@@ -57,11 +57,12 @@ export default function Cart() {
                 className="flex p-4 gap-4 bg-base-100 my-4 rounded-lg "
               >
                 <Image
-                  className="rounded-md h-24"
+                  className="rounded-md w-auto"
                   src={item.image}
                   alt={item.name}
-                  width={120}
-                  height={120}
+                  width={100}
+                  height={100}
+                  priority={true}
                 />
                 <div>
                   <h2>{item.name}</h2>
