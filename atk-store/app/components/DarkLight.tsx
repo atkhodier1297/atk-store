@@ -8,7 +8,7 @@ export default function DarkLight() {
 const themeStore = useThemeStore()
 
 useEffect(() => {
-  document.querySelector("html").setAttribute("data-theme", themeStore.mode);
+  document.querySelector("html")!.setAttribute("data-theme", themeStore.mode);
 }, [themeStore.mode]);
 
   return (
