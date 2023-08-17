@@ -1,7 +1,8 @@
 import Stripe from "stripe";
 import { prisma } from "@/util/prisma";
-import { buffer } from "micro";
+// import { buffer } from "micro";
 import { NextApiRequest, NextApiResponse } from "next";
+import getRawBody from "raw-body";
 
 export const config = {
   api: {
@@ -17,7 +18,8 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const buf = await buffer(req);
+  // const buf = await buffer(req);
+  const rawBody = await getRawBody(req)
   const sig = req.headers["stripe-signature"];
 
   if (!sig) {
@@ -27,7 +29,7 @@ export default async function handler(
 
   try {
     event = stripe.webhooks.constructEvent(
-      buf,
+      rawBody,
       sig,
       process.env.STRIPE_WEBHOOK_SECRET!
     );
