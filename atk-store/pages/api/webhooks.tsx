@@ -19,7 +19,7 @@ export default async function handler(
   res: NextApiResponse
 ) {
   // const buf = await buffer(req);
-  const rawBody = await getRawBody(req)
+  const rawBody = (await getRawBody(req)).toString()
   const sig = req.headers["stripe-signature"];
 
   if (!sig) {
