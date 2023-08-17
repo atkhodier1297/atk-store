@@ -6,7 +6,6 @@ import AddCart from "../AddCart";
 export default async function Product({ searchParams }: SearchParamType) {
   return (
     <div className="flex-col lg:flex-row items-center justify-between gap-16">
-      
       <Image
         src={searchParams.image}
         alt={searchParams.name}
@@ -22,11 +21,12 @@ export default async function Product({ searchParams }: SearchParamType) {
           ? priceFormat(searchParams.unit_amount)
           : "N/A"}
       </p>
-      <AddCart name={searchParams.name}
-      image={searchParams.image}
-      id={searchParams.id}
-      unit_amount={searchParams.unit_amount}
-       />
+      <AddCart
+        name={searchParams.name}
+        image={searchParams.image}
+        id={searchParams.queryId!}
+        unit_amount={searchParams.unit_amount}
+      />
     </div>
   );
 }

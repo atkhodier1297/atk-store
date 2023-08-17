@@ -12,6 +12,7 @@ export default function Product({
   metadata,
 }: ProductType) {
   const { features } = metadata;
+  const queryId = id
 
 
   //if statement below is because I connected this account to a previous stripe store and cannot delete certain items.
@@ -25,7 +26,7 @@ export default function Product({
     <Link
       href={{
         pathname: `/product/${id}`,
-        query: { name, image, unit_amount, id, description, features },
+        query: { name, image, unit_amount, queryId, description, features },
       }}
     >
       <div>
