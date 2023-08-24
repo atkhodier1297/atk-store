@@ -58,7 +58,7 @@ export default function CheckoutForm({
       <h1 className="pt-4">Total: {formattedPrice}</h1>
       <button id="submit" disabled={isLoading || !stripe || !elements}>
         <span id="button-text">
-          {isLoading ? <span>Processing 👀</span> : <button className="my-4 btn btn-primary w-full">Pay Now ✅</button>}
+          {isLoading ? <button className="my-4 btn btn-primary w-full">Processing 👀</button> : <button className="my-4 btn btn-primary w-full">Pay Now ✅</button>}
         </span>
       </button>
     </form>
