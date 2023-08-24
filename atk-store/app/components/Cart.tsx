@@ -111,7 +111,7 @@ export default function Cart() {
             <p>Total: {formatPrice(totalPrice)}</p>
             <button
               onClick={() => cartStore.setCheckout("checkout")}
-              className="py-2 mt-4 bg-primary w-full rounded-md text-black"
+              className="my-4 btn btn-primary w-full"
             >
               Checkout
             </button>
