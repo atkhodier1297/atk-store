@@ -39,7 +39,7 @@ export default function Product({
           height={400}
           priority={true}
         />
-        <h1 className="font-medium text-center">{name}</h1>
+        <h1 className="font-lobster font-medium text-center">{name}</h1>
         <h3 className="text-primary font-medium py-2">
           {unit_amount !== null ? priceFormat(unit_amount) : "N/A"}
         </h3>

@@ -65,7 +65,7 @@ export default function Cart() {
                   priority={true}
                 />
                 <div>
-                  <h2>{item.name}</h2>
+                  <h2 className="font-lobster">{item.name}</h2>
                   {/* Update quantity of a product */}
                   <div className="flex gap-2">
                     <h2>Quantity: {item.quantity}</h2>
